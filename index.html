@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NyayBharat - Law Firm</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes spin-once {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .rotate-once {
+      animation: spin-once 2s ease-in-out 1;
+    }
+    
+    /* Text emergence animation from logo */
+    @keyframes emergeFromLogo {
+      0% {
+        opacity: 0;
+        transform: scale(0) translateX(-50px);
+        filter: blur(10px);
+      }
+      50% {
+        opacity: 0.5;
+        transform: scale(0.8) translateX(-20px);
+        filter: blur(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+        filter: blur(0);
+      }
+    }
+    
+    .animate-emerge {
+      animation: emergeFromLogo 1.5s ease-out 0.8s both;
+    }
+    
+    /* Glow effect for the logo */
+    @keyframes logoGlow {
+      0% {
+        filter: drop-shadow(0 0 0px rgba(212, 175, 55, 0));
+      }
+      50% {
+        filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8));
+      }
+      100% {
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+      }
+    }
+    
+    .animate-logo-glow {
+      animation: logoGlow 2s ease-in-out 0.5s both;
+    }
+    
+    /* Hero text cascade animation */
+    @keyframes textCascade {
+      0% {
+        opacity: 0;
+        transform: translateX(-100px) scale(0.8);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+      }
+    }
+    
+    .animate-cascade {
+      animation: textCascade 1.2s ease-out both;
+    }
+
+    /* Dynamic animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { 
+        box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+        transform: scale(1);
+      }
+      50% { 
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4);
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes slideInLeft {
+      0% { 
+        opacity: 0; 
+        transform: translateX(-100px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+
+    @keyframes slideInRight {
+      0% { 
+        opacity: 0; 
+        transform: translateX(100px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    @keyframes scaleIn {
+      0% { 
+        opacity: 0; 
+        transform: scale(0.8); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: scale(1); 
+      }
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .animate-pulse-glow {
+      animation: pulse-glow 2s infinite;
+    }
+
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out;
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .scale-in {
+      animation: scaleIn 0.6s ease-out;
+    }
+
+    /* Parallax background */
+    .parallax-bg {
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 3s ease-in-out infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Hover effects */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Interactive elements */
+    .interactive-bg {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .interactive-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+
+    .interactive-bg:hover::before {
+      transform: scale(1);
+    }
+
+    /* Navbar scroll effect */
+    .navbar-scrolled {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #2563eb, #7c3aed);
+    }
+
+    /* Particle animation */
+    @keyframes particle-float {
+      0%, 100% { 
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      33% { 
+        transform: translateY(-20px) translateX(10px) rotate(120deg);
+        opacity: 1;
+      }
+      66% { 
+        transform: translateY(-10px) translateX(-5px) rotate(240deg);
+        opacity: 0.8;
+      }
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      animation: particle-float 6s ease-in-out infinite;
+    }
+
+    /* Modern button effects */
+    .btn-modern {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .btn-modern::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease;
+    }
+
+    .btn-modern:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-50 overflow-x-hidden">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-white/80 backdrop-blur-md shadow-lg" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center h-16 justify-between">
+
+        <!-- Mobile hamburger left -->
+        <div class="flex md:hidden">
+          <button id="mobile-menu-button" class="text-gray-700 hover:text-blue-600 focus:outline-none transition-all duration-300 hover:scale-110">
+            <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Logo and Brand Name -->
+        <div class="flex-1 flex justify-center md:justify-start">
+          <div class="flex items-center space-x-3">
+            <!-- Your NyayBharat Logo with enhanced glow -->
+            <img src="./img/nyaybharat-logo.png" 
+                 alt="NyayBharat Logo" 
+                 class="w-8 h-8 md:w-10 md:h-10 rotate-once animate-logo-glow object-contain rounded-full cursor-pointer transition-transform duration-300 hover:scale-110"
+                 onclick="scrollToTop()"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            
+            <!-- Fallback SVG Logo with enhanced styling -->
+            <div class="w-8 h-8 md:w-10 md:h-10 rotate-once animate-logo-glow hidden cursor-pointer transition-transform duration-300 hover:scale-110" onclick="scrollToTop()">
+              <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-lg" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="#1a1a1a" stroke="#d4af37" stroke-width="2"/>
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="3,2"/>
+                <rect x="47" y="25" width="6" height="45" fill="#d4af37"/>
+                <rect x="40" y="65" width="20" height="8" rx="4" fill="#d4af37"/>
+                <rect x="44" y="20" width="12" height="6" rx="3" fill="#d4af37"/>
+                <rect x="30" y="35" width="40" height="3" fill="#d4af37"/>
+                <circle cx="38" cy="40" r="2" fill="#d4af37"/>
+                <line x1="38" y1="42" x2="38" y2="55" stroke="#d4af37" stroke-width="1"/>
+                <line x1="38" y1="42" x2="32" y2="48" stroke="#d4af37" stroke-width="1"/>
+                <line x1="38" y1="42" x2="44" y2="48" stroke="#d4af37" stroke-width="1"/>
+                <path d="M 30 48 Q 38 55 46 48 L 46 52 Q 38 59 30 52 Z" fill="#d4af37"/>
+                <circle cx="62" cy="40" r="2" fill="#d4af37"/>
+                <line x1="62" y1="42" x2="62" y2="55" stroke="#d4af37" stroke-width="1"/>
+                <line x1="62" y1="42" x2="56" y2="48" stroke="#d4af37" stroke-width="1"/>
+                <line x1="62" y1="42" x2="68" y2="48" stroke="#d4af37" stroke-width="1"/>
+                <path d="M 54 48 Q 62 55 70 48 L 70 52 Q 62 59 54 52 Z" fill="#d4af37"/>
+              </svg>
+            </div>
+
+            <!-- Brand Name with enhanced emergence animation -->
+            <a href="#" class="text-xl md:text-2xl font-bold text-gray-800 hover:text-blue-600 transition-all duration-500 animate-emerge hover:scale-105 gradient-text">
+              NyayBharat
+            </a>
+          </div>
+        </div>
+
+        <!-- Desktop menu -->
+        <div class="hidden md:flex md:items-center space-x-6">
+          <a href="#home" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 relative hover:scale-105 interactive-bg px-3 py-1 rounded">Home</a>
+          <a href="#about" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 relative hover:scale-105 interactive-bg px-3 py-1 rounded">About Us</a>
+
+          <!-- Desktop Services Dropdown with enhanced styling -->
+          <div class="relative group">
+            <a href="#services" class="nav-link text-gray-700 hover:text-blue-600 font-medium flex items-center py-2 transition-all duration-300 hover:scale-105 interactive-bg px-3 py-1 rounded">
+              Services
+              <svg class="w-4 h-4 ml-1 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </a>
+            <div class="absolute left-0 top-full mt-2 w-56 glass rounded-xl shadow-2xl py-3 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+              <a href="#civil" class="block px-6 py-3 text-gray-700 hover:bg-white/20 hover:text-blue-600 transition-all duration-300 interactive-bg rounded-lg mx-2">Civil Law</a>
+              <a href="#criminal" class="block px-6 py-3 text-gray-700 hover:bg-white/20 hover:text-blue-600 transition-all duration-300 interactive-bg rounded-lg mx-2">Criminal Law</a>
+              <a href="#corporate" class="block px-6 py-3 text-gray-700 hover:bg-white/20 hover:text-blue-600 transition-all duration-300 interactive-bg rounded-lg mx-2">Corporate Law</a>
+              <a href="#family" class="block px-6 py-3 text-gray-700 hover:bg-white/20 hover:text-blue-600 transition-all duration-300 interactive-bg rounded-lg mx-2">Family Law</a>
+              <a href="#property" class="block px-6 py-3 text-gray-700 hover:bg-white/20 hover:text-blue-600 transition-all duration-300 interactive-bg rounded-lg mx-2">Property Law</a>
+              <a href="#tax" class="block px-6 py-3 text-gray-700 hover:bg-white/20 hover:text-blue-600 transition-all duration-300 interactive-bg rounded-lg mx-2">Tax Law</a>
+            </div>
+          </div>
+
+          <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 hover:scale-105 interactive-bg px-3 py-1 rounded">Contact</a>
+          <a href="#appointment" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 animate-pulse-glow btn-modern">Book Appointment</a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Enhanced Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden px-4 pt-4 pb-6 space-y-3 glass border-t border-white/20 transition-all duration-500">
+      <a href="#home" class="block text-gray-700 hover:text-blue-600 font-medium py-3 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Home</a>
+      <a href="#about" class="block text-gray-700 hover:text-blue-600 font-medium py-3 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">About Us</a>
+
+      <!-- Mobile Services Dropdown with enhanced styling -->
+      <div>
+        <button id="mobile-services-btn" class="w-full text-left flex justify-between items-center text-gray-700 hover:text-blue-600 font-medium py-3 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">
+          Services
+          <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div id="mobile-services-menu" class="max-h-0 overflow-hidden transition-all duration-500 ml-4 mt-2 space-y-2">
+          <a href="#civil" class="block text-gray-600 hover:text-blue-600 py-2 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Civil Law</a>
+          <a href="#criminal" class="block text-gray-600 hover:text-blue-600 py-2 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Criminal Law</a>
+          <a href="#corporate" class="block text-gray-600 hover:text-blue-600 py-2 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Corporate Law</a>
+          <a href="#family" class="block text-gray-600 hover:text-blue-600 py-2 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Family Law</a>
+          <a href="#property" class="block text-gray-600 hover:text-blue-600 py-2 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Property Law</a>
+          <a href="#tax" class="block text-gray-600 hover:text-blue-600 py-2 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Tax Law</a>
+        </div>
+      </div>
+
+      <a href="#contact" class="block text-gray-700 hover:text-blue-600 font-medium py-3 transition-all duration-300 hover:pl-4 interactive-bg rounded-lg px-4">Contact</a>
+      <a href="#appointment" class="block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full hover:from-blue-700 hover:to-purple-700 transition-all duration-300 text-center shadow-lg mt-4 btn-modern">Book Consultation</a>
+    </div>
+
+  </nav>
+
+  <!-- Hero Section with enhanced animations -->
+  <section id="home" class="min-h-screen bg-gradient-to-br from-blue-600 via-purple-700 to-indigo-800 text-white pt-16 parallax-bg relative overflow-hidden flex items-center">
+    <!-- Enhanced animated background particles -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="particle animate-float absolute top-20 left-10" style="animation-delay: 0s; animation-duration: 4s;"></div>
+      <div class="particle animate-float absolute top-40 right-20" style="animation-delay: 1s; animation-duration: 5s;"></div>
+      <div class="particle animate-float absolute bottom-32 left-1/4" style="animation-delay: 2s; animation-duration: 6s;"></div>
+      <div class="particle animate-float absolute top-1/2 right-1/3" style="animation-delay: 0.5s; animation-duration: 4.5s;"></div>
+      <div class="particle animate-float absolute top-1/3 left-1/2" style="animation-delay: 3s; animation-duration: 5.5s;"></div>
+      <div class="particle animate-float absolute bottom-20 right-10" style="animation-delay: 1.5s; animation-duration: 4.8s;"></div>
+    </div>
+
+    <!-- Geometric background shapes -->
+    <div class="absolute inset-0 overflow-hidden opacity-10">
+      <div class="absolute top-20 left-20 w-40 h-40 bg-white rounded-full animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-20 right-20 w-60 h-60 bg-white rounded-full animate-float" style="animation-delay: 4s;"></div>
+      <div class="absolute top-1/2 left-10 w-20 h-20 bg-white transform rotate-45 animate-float" style="animation-delay: 3s;"></div>
+    </div>
+
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <div class="flex items-center justify-center space-x-6 mb-8">
+        <!-- Enhanced Large Logo for Hero with multiple effects -->
+        <img src="./img/nyaybharat-logo.png" 
+             alt="NyayBharat Logo" 
+             class="w-20 h-20 md:w-28 md:h-28 rotate-once animate-logo-glow object-contain drop-shadow-2xl"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        
+        <!-- Enhanced Fallback Large Logo -->
+        <div class="w-20 h-20 md:w-28 md:h-28 rotate-once animate-logo-glow hidden drop-shadow-2xl">
+          <svg viewBox="0 0 100 100" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <circle cx="50" cy="50" r="48" fill="#1a1a1a" stroke="#d4af37" stroke-width="3" filter="url(#glow)"/>
+            <circle cx="50" cy="50" r="42" fill="none" stroke="#d4af37" stroke-width="2" stroke-dasharray="4,3"/>
+            <circle cx="50" cy="50" r="38" fill="none" stroke="#d4af37" stroke-width="1" stroke-dasharray="2,1"/>
+            <rect x="46" y="22" width="8" height="50" fill="#d4af37"/>
+            <rect x="38" y="65" width="24" height="10" rx="5" fill="#d4af37"/>
+            <rect x="41" y="62" width="18" height="6" rx="3" fill="#d4af37"/>
+            <circle cx="50" cy="20" r="4" fill="#d4af37"/>
+            <rect x="43" y="16" width="14" height="8" rx="4" fill="#d4af37"/>
+            <rect x="25" y="32" width="50" height="4" fill="#d4af37"/>
+            <circle cx="35" cy="38" r="2.5" fill="#d4af37"/>
+            <line x1="35" y1="40" x2="35" y2="58" stroke="#d4af37" stroke-width="1.5"/>
+            <line x1="35" y1="40" x2="27" y2="48" stroke="#d4af37" stroke-width="1.5"/>
+            <line x1="35" y1="40" x2="43" y2="48" stroke="#d4af37" stroke-width="1.5"/>
+            <path d="M 24 48 Q 35 58 46 48 L 46 53 Q 35 63 24 53 Z" fill="#d4af37"/>
+            <circle cx="65" cy="38" r="2.5" fill="#d4af37"/>
+            <line x1="65" y1="40" x2="65" y2="58" stroke="#d4af37" stroke-width="1.5"/>
+            <line x1="65" y1="40" x2="57" y2="48" stroke="#d4af37" stroke-width="1.5"/>
+            <line x1="65" y1="40" x2="73" y2="48" stroke="#d4af37" stroke-width="1.5"/>
+            <path d="M 54 48 Q 65 58 76 48 L 76 53 Q 65 63 54 53 Z" fill="#d4af37"/>
+          </svg>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold animate-cascade gradient-text drop-shadow-2xl" style="animation-delay: 1.2s;">NyayBharat</h1>
+      </div>
+      <p class="text-2xl md:text-3xl mb-8 text-blue-100 animate-cascade drop-shadow-lg" style="animation-delay: 1.5s;">Your Trusted Legal Partner</p>
+      <p class="text-lg md:text-xl mb-12 text-blue-200 max-w-4xl mx-auto animate-cascade leading-relaxed" style="animation-delay: 1.8s;">
+        Providing comprehensive legal solutions with integrity, expertise, and dedication. 
+        We are committed to protecting your rights and delivering justice with modern approaches and traditional values.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center animate-cascade" style="animation-delay: 2.1s;">
+        <a href="#contact" class="glass text-white px-10 py-4 rounded-full font-semibold hover:bg-white/20 transition-all duration-500 shadow-2xl hover:shadow-3xl transform hover:scale-110 btn-modern backdrop-blur-md border border-white/30">
+          Free Consultation
+        </a>
+        <a href="#services" class="bg-white/10 border-2 border-white text-white px-10 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-700 transition-all duration-500 transform hover:scale-110 btn-modern backdrop-blur-sm">
+          Our Services
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced services preview section -->
+  <section class="py-20 bg-white relative overflow-hidden">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="text-center p-8 bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-xl card-hover scale-in interactive-bg" style="animation-delay: 0.1s;">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 animate-float shadow-lg">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4 gradient-text">Expert Legal Advice</h3>
+          <p class="text-gray-600 leading-relaxed">Professional guidance from experienced attorneys with decades of expertise in Indian law</p>
+        </div>
+        
+        <div class="text-center p-8 bg-gradient-to-br from-purple-50 to-white rounded-2xl shadow-xl card-hover scale-in interactive-bg" style="animation-delay: 0.2s;">
+          <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 animate-float shadow-lg" style="animation-delay: 1
