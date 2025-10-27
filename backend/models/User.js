@@ -19,6 +19,17 @@ const userSchema = new mongoose.Schema(
         'Please add a valid email',
       ],
     },
+    phone: {
+      type: String,
+      required: false, // Optional for backward compatibility
+      unique: true,
+      sparse: true, // Allows multiple null values
+      trim: true,
+      match: [
+        /^[0-9]{10}$/,
+        'Please add a valid 10-digit phone number',
+      ],
+    },
     password: {
       type: String,
       required: [true, 'Please add a password'],
@@ -33,6 +44,26 @@ const userSchema = new mongoose.Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    otp: {
+      type: String,
+      select: false,
+    },
+    otpExpiry: {
+      type: Date,
+      select: false,
+    },
+    resetPasswordOTP: {
+      type: String,
+      select: false,
+    },
+    resetPasswordOTPExpiry: {
+      type: Date,
+      select: false,
     },
   },
   {
