@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -20,6 +21,29 @@ dotenv.config({ path: path.join(__dirname, ".env") });
 const app = express();
 
 
+=======
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import connectDB from './config/db.js';
+import authRoutes from './routes/authRoutes.js';
+import configRoutes from './routes/configRoutes.js';
+import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+import mongoose from 'mongoose';
+
+// ✅ Load environment variables FIRST
+dotenv.config();
+
+// ✅ Resolve dirname for ES module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ✅ Initialize Express
+const app = express();
+
+>>>>>>> 2d4d54c586c89922b42e5f6b27aee82bbe982816
 console.log('🚀 Starting NyayBharat Backend...');
 console.log('📝 NODE_ENV:', process.env.NODE_ENV || 'development');
 console.log('🌐 Allowed Client URL:', process.env.CLIENT_URL);
@@ -37,10 +61,15 @@ console.log('🌐 Allowed Client URL:', process.env.CLIENT_URL);
 // ✅ Define Allowed Origins for CORS
 const allowedOrigins = [
   process.env.CLIENT_URL,
+<<<<<<< HEAD
   "http://localhost:5500",
   "http://127.0.0.1:5500",
   "http://localhost:5174",
   "http://127.0.0.1:5174",
+=======
+  'http://localhost:5174',
+  'http://127.0.0.1:5174'
+>>>>>>> 2d4d54c586c89922b42e5f6b27aee82bbe982816
 ].filter(Boolean);
 
 app.use(cors({
@@ -79,8 +108,11 @@ app.use((req, res, next) => {
 // ✅ API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/config', configRoutes);
+<<<<<<< HEAD
 app.use("/api/payment", paymentRoutes);
 
+=======
+>>>>>>> 2d4d54c586c89922b42e5f6b27aee82bbe982816
 
 // ✅ Root Route
 app.get('/', (req, res) => {
