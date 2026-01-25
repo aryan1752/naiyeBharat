@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="./register.js"></script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-white px-4">
+
+  <div class="w-full max-w-sm rounded-xl bg-gray-50 border border-gray-200 p-6 shadow-sm">
+    <h1 class="mb-2 text-center text-2xl font-semibold text-gray-900">
+      Create new account
+    </h1>
+
+    <p class="mb-6 text-center text-sm text-gray-500">
+      Sign up with your email and password
+    </p>
+
+    <form id="registerForm" class="space-y-4">
+      <div>
+        <label for="email" class="mb-1 block text-sm text-gray-600">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="name@example.com"
+          class="py-2 w-full rounded-lg border border-gray-300 bg-white px-3 text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label for="password" class="mb-1 block text-sm text-gray-600">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          class="py-2 w-full rounded-lg border border-gray-300 bg-white px-3 text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <button
+        id="submit"
+        type="submit"
+        class="py-2.5 font-medium w-full rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
+      >
+        Create account
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="flex items-center gap-3 my-6">
+      <div class="h-px w-full bg-gray-200"></div>
+      <span class="text-xs text-gray-400">OR</span>
+      <div class="h-px w-full bg-gray-200"></div>
+    </div>
+
+    <!-- Login Button -->
+    <a
+      href="./login.html"
+      class="block w-full text-center py-2.5 font-medium rounded-lg border border-gray-300 bg-white text-gray-800 hover:bg-gray-100 transition"
+    >
+      Already have an account? Login
+    </a>
+  </div>
+
+</body>
+</html>
