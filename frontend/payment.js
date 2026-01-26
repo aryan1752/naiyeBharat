@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "https://naiyebharat.onrender.com";
 const RAZORPAY_KEY_ID = "RAZORPAY_KEY_ID"; // public key
 const AMOUNT = 799; // change price
 
