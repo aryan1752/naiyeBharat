@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+     <section id="Contact" class="py-20 bg-gray-800 text-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 gsap-fade contact-header">
+        <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto mb-8"></div>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          Ready to discuss your legal needs? Contact us today for a consultation.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="gsap-slide-left contact-info">
+          <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+          <div class="space-y-6">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold">Address</h4>
+                <p class="text-gray-300">chamber number-702, saket district court, New Delhi</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold">Phone</h4>
+                <p class="text-gray-300">+91 7011684582, +91 9643642462</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold">Email</h4>
+                <p class="text-gray-300">naiyebharat@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gsap-slide-right contact-form">
+          <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
+          <form id="contactForm" class="space-y-6">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <input type="text" id="name" placeholder="Your Name" required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+              </div>
+              <div>
+                <input type="email" id="email" placeholder="Your Email" required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <input type="tel" id="phone" placeholder="Contact Number" required pattern="[0-9]{10}"
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+                <p class="text-xs text-gray-400 mt-1">10-digit mobile number</p>
+              </div>
+              <div>
+                <input type="text" id="occupation" placeholder="Your Occupation" required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+              </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <select id="caseType" required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+                  <option value="">Select Case Type</option>
+                  <option value="Civil">Civil</option>
+                  <option value="Criminal">Criminal</option>
+                  <option value="Family">Family Law</option>
+                  <option value="Corporate">Corporate Law</option>
+                  <option value="Property">Property Dispute</option>
+                  <option value="Tax">court marriage</option>
+                  <option value="Other">Other</option>
+                  <option value="pre-legal councelling">pre-legal councelling</option>
+                  <option value="post legal councelling">post legal councelling</option>
+                  <option value="adult councelling">adult councelling</option>
+                  <option value="teen councelling">teen councelling</option>
+                  <option value="victims support">victims support</option>
+                  <option value="marriage consultation">stress burnout support</option>
+                  <option value="post legal councelling">mediation</option>
+
+
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div>
+                <input type="text" id="address" placeholder="address" required
+                  class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+              </div>
+            </div>
+            <div>
+              <textarea id="message" placeholder="Your Message" rows="5" required
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors"></textarea>
+            </div>
+            <div>
+              <label class="block text-sm text-gray-400 mb-2">Consultation Fee: ₹500</label>
+            </div>
+           <style>
+  @keyframes rotate {
+    100% { transform: rotate(1turn); }
+  }
+
+  .rainbow::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-size: 50% 30%;
+    filter: blur(6px);
+    background-image: linear-gradient(#FF0A7F,#780EFF);
+    animation: rotate 4s linear infinite;
+  }
+</style>
+
+<div class="rainbow relative z-0 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100 w-full">
+  <button
+    type="button"
+    id="payButton"
+    onclick="startPayment()"
+    class="w-full px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Pay ₹500 & Submit
+  </button>
+            <div id="statusMessage" class="hidden p-4 rounded-md"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const BACKEND_URL = 'https://naiyebharat.onrender.com';
+    const AMOUNT = 500; // Amount in INR
+
+    async function startPayment() {
+      const form = document.getElementById('contactForm');
+      const payButton = document.getElementById('payButton');
+      const statusMessage = document.getElementById('statusMessage');
+
+      // Validate form
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Get form data
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        caseType: document.getElementById('caseType').value,
+        occupation: document.getElementById('occupation').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+
+      try {
+        payButton.disabled = true;
+        payButton.textContent = 'Processing...';
+
+        // Create order
+        const orderResponse = await fetch(`${BACKEND_URL}/api/create-order`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: AMOUNT,
+            currency: 'INR',
+            receipt: `receipt_${Date.now()}`,
+            notes: {
+              name: formData.name,
+              email: formData.email,
+              subject: formData.subject
+            }
+          })
+        });
+
+        const orderData = await orderResponse.json();
+
+        if (!orderData.success) {
+          throw new Error('Failed to create order');
+        }
+
+        // Razorpay options
+        const options = {
+          key: orderData.key_id,
+          amount: orderData.order.amount,
+          currency: orderData.order.currency,
+          name: 'Legal Consultation',
+          description: formData.subject,
+          order_id: orderData.order.id,
+          prefill: {
+            name: formData.name,
+            email: formData.email,
+          },
+          theme: {
+            color: '#2563eb'
+          },
+          handler: async function(response) {
+            await verifyPayment(response, formData);
+          },
+          modal: {
+            ondismiss: function() {
+              payButton.disabled = false;
+              payButton.textContent = 'Pay ₹500 & Submit';
+              showMessage('Payment cancelled', 'error');
+            }
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+
+      } catch (error) {
+        console.error('Error:', error);
+        showMessage('Error initiating payment. Please try again.', 'error');
+        payButton.disabled = false;
+        payButton.textContent = 'Pay ₹500 & Submit';
+      }
+    }
+
+    async function verifyPayment(paymentResponse, formData) {
+      const payButton = document.getElementById('payButton');
+
+      try {
+        // Verify payment
+        const verifyResponse = await fetch(`${BACKEND_URL}/api/verify-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(paymentResponse)
+        });
+
+        const verifyData = await verifyResponse.json();
+
+        if (verifyData.success) {
+          // Payment verified - now send the form data
+          await submitForm(formData, verifyData);
+        } else {
+          throw new Error('Payment verification failed');
+        }
+
+      } catch (error) {
+        console.error('Verification error:', error);
+        showMessage('Payment verification failed. Please contact support.', 'error');
+        payButton.disabled = false;
+        payButton.textContent = 'Pay ₹500 & Submit';
+      }
+    }
+
+    async function submitForm(formData, paymentData) {
+      const payButton = document.getElementById('payButton');
+
+      try {
+        // Send form data to backend email endpoint
+        const emailResponse = await fetch(`${BACKEND_URL}/api/send-email`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...formData,
+            payment_id: paymentData.payment_id,
+            order_id: paymentData.order_id
+          })
+        });
+
+        const emailData = await emailResponse.json();
+
+        if (emailData.success) {
+          showMessage('Payment successful! Your message has been sent.', 'success');
+          document.getElementById('contactForm').reset();
+        } else {
+          throw new Error('Email sending failed');
+        }
+
+        payButton.disabled = false;
+        payButton.textContent = 'Pay ₹500 & Submit';
+
+      } catch (error) {
+        console.error('Submission error:', error);
+        showMessage('Payment successful but message delivery failed. We will contact you.', 'warning');
+        payButton.disabled = false;
+        payButton.textContent = 'Pay ₹500 & Submit';
+      }
+    }
+
+    function showMessage(message, type) {
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.textContent = message;
+      statusMessage.className = `p-4 rounded-md ${
+        type === 'success' ? 'bg-green-600' :
+        type === 'error' ? 'bg-red-600' :
+        'bg-yellow-600'
+      }`;
+      statusMessage.classList.remove('hidden');
+
+      setTimeout(() => {
+        statusMessage.classList.add('hidden');
+      }, 5000);
+    }
+  </script>
+  
+<footer class="flex flex-col md:flex-row gap-3 items-center justify-around w-full py-4 text-sm bg-slate-800 text-white/70">
+    <p>Copyright © 2026 naiyebharat. All rights reservered.</p>
+    <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-white transition-all">
+            Contact Us
+        </a>
+        <div class="h-8 w-px bg-white/20"></div>
+        <a href="privacy-policy.html" class="hover:text-white transition-all">
+            Privacy Policy
+        </a>
+        <div class="h-8 w-px bg-white/20"></div>
+        <a href="terms-and-conditions.html" class="hover:text-white transition-all">
+            term and conditions
+        </a>
+    </div>
+</footer>
+</body>
+</html>
