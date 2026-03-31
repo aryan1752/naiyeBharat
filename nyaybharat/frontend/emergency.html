@@ -1,0 +1,144 @@
+=<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Star Background</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  font-family: Arial, sans-serif;
+}
+
+/* STAR LAYERS */
+#stars, #stars2, #stars3{
+  position: fixed;
+  top:0;
+  left:0;
+  width:1px;
+  height:1px;
+  background:transparent;
+}
+
+/* SMALL STARS */
+#stars{
+  box-shadow:
+  100px 200px #FFF, 400px 800px #FFF, 900px 300px #FFF,
+  1200px 600px #FFF, 1500px 900px #FFF, 1800px 400px #FFF,
+  200px 1400px #FFF, 600px 1600px #FFF, 300px 1200px #FFF,
+  1700px 1300px #FFF;
+  animation: animStar 50s linear infinite;
+}
+
+#stars:after{
+  content:" ";
+  position:absolute;
+  top:2000px;
+  width:1px;
+  height:1px;
+  box-shadow: inherit;
+}
+
+/* MEDIUM STARS */
+#stars2{
+  box-shadow:
+  300px 500px #FFF, 700px 100px #FFF,
+  1300px 700px #FFF, 1600px 1200px #FFF;
+  animation: animStar 100s linear infinite;
+}
+
+#stars2:after{
+  content:" ";
+  position:absolute;
+  top:2000px;
+  width:2px;
+  height:2px;
+  box-shadow: inherit;
+}
+
+/* BIG STARS */
+#stars3{
+  box-shadow:
+  500px 400px #FFF, 900px 900px #FFF, 1700px 200px #FFF;
+  animation: animStar 150s linear infinite;
+}
+
+#stars3:after{
+  content:" ";
+  position:absolute;
+  top:2000px;
+  width:3px;
+  height:3px;
+  box-shadow: inherit;
+}
+
+/* ANIMATION */
+@keyframes animStar{
+  from{ transform: translateY(0); }
+  to{ transform: translateY(-2000px); }
+}
+
+/* SAMPLE CONTENT */
+.content{
+  position: relative;
+  z-index: 5;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div id="stars2"></div>
+<div id="stars3"></div>
+
+<div class="content">
+ <div style="max-width:700px;margin:auto;background:#ffffff;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,0.15);padding:24px;font-family:Arial, sans-serif;line-height:1.6;">
+  
+  <h2 style="color:#b91c1c;margin-bottom:6px;">
+    Naiye Bharat SOS – 24×7 Legal Emergency Support
+  </h2>
+  <p><strong>Instant legal help when you need it the most.</strong></p>
+
+  <h3>🔴 Key Features</h3>
+  <ul>
+    <li>⚡ One-Tap SOS Activation</li>
+    <li>👨‍⚖️ Instant Online Lawyer Connection</li>
+    <li>🏠 Offline Lawyer Support Within 1 Hour</li>
+    <li>🕒 24×7 Availability</li>
+    <li>📍 Location-Based Lawyer Matching</li>
+    <li>🛡️ Verified & Trusted Legal Professionals</li>
+    <li>📞 Police & Legal Rights Guidance</li>
+    <li>🔒 Secure & Confidential Support</li>
+    <li>📂 Emergency Case Documentation Support</li>
+  </ul>
+
+  <h3>⚖️ Emergency Categories Covered</h3>
+  <ul>
+    <li>Women safety & harassment</li>
+    <li>Police detention & arrest</li>
+    <li>Domestic violence</li>
+    <li>Road accidents</li>
+    <li>Property disputes</li>
+    <li>Cyber crime</li>
+    <li>Medical & workplace emergencies</li>
+  </ul>
+
+  <button style="width:100%;margin-top:18px;padding:14px;border:none;border-radius:10px;background:#000000;color:#ffffff;font-size:16px;font-weight:bold;cursor:pointer;">
+    ₹4599/session – Get 24×7 Legal Protection Now
+  </button>
+
+</div>
+
+</div>
+
+</body>
+</html>

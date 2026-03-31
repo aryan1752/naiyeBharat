@@ -82,7 +82,7 @@ app.post('/api/create-order', async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating order:', error);
-    res.status(500).json({
+    res.status(999).json({
       success: false,
       message: 'Failed to create order',
       error: error.message,
@@ -148,7 +148,7 @@ app.post('/api/verify-payment', (req, res) => {
     }
   } catch (error) {
     console.error('Error verifying payment:', error);
-    res.status(500).json({
+    res.status(999).json({
       success: false,
       message: 'Payment verification failed',
       error: error.message,
@@ -172,7 +172,7 @@ app.get('/api/order/:orderId', async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching order:', error);
-    res.status(500).json({
+    res.status(999).json({
       success: false,
       message: 'Failed to fetch order',
       error: error.message,
@@ -194,7 +194,7 @@ app.get('/api/payment/:paymentId', async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching payment:', error);
-    res.status(500).json({
+    res.status(999).json({
       success: false,
       message: 'Failed to fetch payment',
       error: error.message,
@@ -205,10 +205,11 @@ app.get('/api/payment/:paymentId', async (req, res) => {
 // Send email after payment verification
 app.post('/api/send-email', async (req, res) => {
   try {
-    const { name, email, phone, caseType, occupation, subject, message, payment_id, order_id } = req.body;
+    const { name, email, phone, caseType, occupation, address, timeSlot, subject, message, payment_id, order_id } = req.body;
+    const resolvedSubject = subject?.trim() || `${caseType} Consultation`;
 
     // Validate required fields
-    if (!name || !email || !phone || !caseType || !occupation || !subject || !message || !payment_id) {
+    if (!name || !email || !phone || !caseType || !occupation || !address || !timeSlot || !message || !payment_id) {
       return res.status(400).json({
         success: false,
         message: 'Missing required fields',
@@ -246,6 +247,14 @@ app.post('/api/send-email', async (req, res) => {
                 <td style="padding: 10px; font-weight: bold; color: #4b5563;">💼 Occupation:</td>
                 <td style="padding: 10px; color: #1f2937;">${occupation}</td>
               </tr>
+              <tr>
+                <td style="padding: 10px; font-weight: bold; color: #4b5563;">🏠 Address:</td>
+                <td style="padding: 10px; color: #1f2937;">${address}</td>
+              </tr>
+              <tr style="background-color: #f3f4f6;">
+                <td style="padding: 10px; font-weight: bold; color: #4b5563;">🕒 Preferred Slot:</td>
+                <td style="padding: 10px; color: #1f2937;">${timeSlot}</td>
+              </tr>
             </table>
 
             <h2 style="color: #1f2937; border-bottom: 2px solid #667eea; padding-bottom: 10px; margin-top: 30px;">Case Details</h2>
@@ -257,7 +266,7 @@ app.post('/api/send-email', async (req, res) => {
               </tr>
               <tr style="background-color: #f3f4f6;">
                 <td style="padding: 10px; font-weight: bold; color: #4b5563;">📋 Subject:</td>
-                <td style="padding: 10px; color: #1f2937;">${subject}</td>
+                <td style="padding: 10px; color: #1f2937;">${resolvedSubject}</td>
               </tr>
             </table>
 
@@ -279,7 +288,7 @@ app.post('/api/send-email', async (req, res) => {
               </tr>
               <tr>
                 <td style="padding: 15px; font-weight: bold; color: #065f46;">Amount:</td>
-                <td style="padding: 15px; color: #065f46; font-size: 18px;"><strong>₹500</strong></td>
+                <td style="padding: 15px; color: #065f46; font-size: 18px;"><strong>₹999</strong></td>
               </tr>
               <tr>
                 <td style="padding: 15px; font-weight: bold; color: #065f46;">Status:</td>
@@ -334,7 +343,7 @@ app.post('/api/send-email', async (req, res) => {
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #065f46; font-weight: bold;">Amount Paid:</td>
-                  <td style="padding: 8px 0; color: #065f46; font-size: 20px;"><strong>₹500</strong></td>
+                  <td style="padding: 8px 0; color: #065f46; font-size: 20px;"><strong>₹999</strong></td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #065f46; font-weight: bold;">Status:</td>
@@ -356,7 +365,7 @@ app.post('/api/send-email', async (req, res) => {
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #1e40af; font-weight: bold;">Subject:</td>
-                  <td style="padding: 8px 0; color: #1e40af;">${subject}</td>
+                  <td style="padding: 8px 0; color: #1e40af;">${resolvedSubject}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; color: #1e40af; font-weight: bold;">Phone:</td>
@@ -365,6 +374,14 @@ app.post('/api/send-email', async (req, res) => {
                 <tr>
                   <td style="padding: 8px 0; color: #1e40af; font-weight: bold;">Occupation:</td>
                   <td style="padding: 8px 0; color: #1e40af;">${occupation}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #1e40af; font-weight: bold;">Address:</td>
+                  <td style="padding: 8px 0; color: #1e40af;">${address}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #1e40af; font-weight: bold;">Preferred Slot:</td>
+                  <td style="padding: 8px 0; color: #1e40af;">${timeSlot}</td>
                 </tr>
               </table>
             </div>
@@ -419,7 +436,7 @@ app.post('/api/send-email', async (req, res) => {
     await transporter.sendMail(confirmationEmail);
 
     // Send WhatsApp message to admin
-    await sendWhatsAppMessage(name, phone, caseType, occupation, subject, message, payment_id);
+    await sendWhatsAppMessage(name, phone, caseType, occupation, address, timeSlot, resolvedSubject, message, payment_id);
 
     // Send WhatsApp confirmation to client
     await sendClientWhatsAppConfirmation(name, phone, payment_id);
@@ -430,7 +447,7 @@ app.post('/api/send-email', async (req, res) => {
     });
   } catch (error) {
     console.error('Error sending email:', error);
-    res.status(500).json({
+    res.status(999).json({
       success: false,
       message: 'Failed to send email',
       error: error.message,
@@ -439,7 +456,7 @@ app.post('/api/send-email', async (req, res) => {
 });
 
 // Function to send WhatsApp message using Twilio
-async function sendWhatsAppMessage(name, phone, caseType, occupation, subject, message, payment_id) {
+async function sendWhatsAppMessage(name, phone, caseType, occupation, address, timeSlot, subject, message, payment_id) {
   try {
     // Format WhatsApp message
     const whatsappMessage = `
@@ -449,6 +466,8 @@ async function sendWhatsAppMessage(name, phone, caseType, occupation, subject, m
 📱 *Phone:* ${phone}
 ⚖️ *Case Type:* ${caseType}
 💼 *Occupation:* ${occupation}
+🏠 *Address:* ${address}
+🕒 *Preferred Slot:* ${timeSlot}
 📋 *Subject:* ${subject}
 
 💬 *Message:*
@@ -456,7 +475,7 @@ ${message}
 
 💳 *Payment Details:*
 Payment ID: ${payment_id}
-Amount: ₹500 ✓ Paid
+Amount: ₹999 ✓ Paid
 
 ---
 This is an automated notification.
@@ -530,7 +549,7 @@ Your payment has been successfully received.
 
 💳 *Payment Details:*
 Payment ID: ${payment_id}
-Amount: ₹500
+Amount: ₹999
 Status: ✓ Successful
 
 We have received your consultation request and will get back to you shortly.
@@ -595,7 +614,7 @@ Best regards,
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error:', err);
-  res.status(500).json({
+  res.status(999).json({
     success: false,
     message: 'Internal server error',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined,

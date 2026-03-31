@@ -43,7 +43,7 @@
               </div>
               <div>
                 <h4 class="font-semibold">Phone</h4>
-                <p class="text-gray-300">+91 7011684582, +91 9643642462</p>
+                <p class="text-gray-300">+91 85120 05097</p>
               </div>
             </div>
             
@@ -95,31 +95,42 @@
                   <option value="Family">Family Law</option>
                   <option value="Corporate">Corporate Law</option>
                   <option value="Property">Property Dispute</option>
-                  <option value="Tax">court marriage</option>
-                  <option value="Other">Other</option>
-                  <option value="pre-legal councelling">pre-legal councelling</option>
-                  <option value="post legal councelling">post legal councelling</option>
-                  <option value="adult councelling">adult councelling</option>
-                  <option value="teen councelling">teen councelling</option>
-                  <option value="victims support">victims support</option>
-                  <option value="marriage consultation">stress burnout support</option>
-                  <option value="post legal councelling">mediation</option>
-
-
+                  <option value="Court Marriage">Court Marriage</option>
+                  <option value="Pre-Legal Counselling">Pre-Legal Counselling</option>
+                  <option value="Post Legal Counselling">Post Legal Counselling</option>
+                  <option value="Adult Counselling">Adult Counselling</option>
+                  <option value="Teen Counselling">Teen Counselling</option>
+                  <option value="Victims Support">Victims Support</option>
+                  <option value="Stress Burnout Support">Stress Burnout Support</option>
+                  <option value="Mediation">Mediation</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
               <div>
-                <input type="text" id="address" placeholder="address" required
+                <input type="text" id="address" placeholder="Your Address" required
                   class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
               </div>
+            </div>
+            <div>
+              <select id="timeSlot" required
+                class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors">
+                <option value="">Preferred Consultation Time Slot</option>
+                <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                <option value="12:00 PM - 01:00 PM">12:00 PM - 01:00 PM</option>
+                <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                <option value="04:00 PM - 05:00 PM">04:00 PM - 05:00 PM</option>
+                <option value="05:00 PM - 06:00 PM">05:00 PM - 06:00 PM</option>
+              </select>
             </div>
             <div>
               <textarea id="message" placeholder="Your Message" rows="5" required
                 class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:border-blue-500 transition-colors"></textarea>
             </div>
             <div>
-              <label class="block text-sm text-gray-400 mb-2">Consultation Fee: ₹500</label>
+              <label class="block text-sm text-gray-400 mb-2">Consultation Fee: ₹999</label>
             </div>
            <style>
   @keyframes rotate {
@@ -150,8 +161,9 @@
     onclick="startPayment()"
     class="w-full px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
   >
-    Pay ₹500 & Submit
+    Pay ₹999 & Submit
   </button>
+</div>
             <div id="statusMessage" class="hidden p-4 rounded-md"></div>
           </form>
         </div>
@@ -161,7 +173,7 @@
 
   <script>
     const BACKEND_URL = 'https://naiyebharat.onrender.com';
-    const AMOUNT = 500; // Amount in INR
+    const AMOUNT = 999; // Amount in INR
 
     async function startPayment() {
       const form = document.getElementById('contactForm');
@@ -174,14 +186,15 @@
         return;
       }
 
-      // Get form data
+      // Get form data - FIXED: Now includes all fields and matches HTML
       const formData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
-        caseType: document.getElementById('caseType').value,
         occupation: document.getElementById('occupation').value,
-        subject: document.getElementById('subject').value,
+        caseType: document.getElementById('caseType').value,
+        address: document.getElementById('address').value,
+        timeSlot: document.getElementById('timeSlot').value,
         message: document.getElementById('message').value
       };
 
@@ -202,15 +215,19 @@
             notes: {
               name: formData.name,
               email: formData.email,
-              subject: formData.subject
+              caseType: formData.caseType
             }
           })
         });
 
+        if (!orderResponse.ok) {
+          throw new Error(`HTTP error! status: ${orderResponse.status}`);
+        }
+
         const orderData = await orderResponse.json();
 
         if (!orderData.success) {
-          throw new Error('Failed to create order');
+          throw new Error(orderData.message || 'Failed to create order');
         }
 
         // Razorpay options
@@ -218,12 +235,13 @@
           key: orderData.key_id,
           amount: orderData.order.amount,
           currency: orderData.order.currency,
-          name: 'naiye Bharat',
-          description: formData.subject,
+          name: 'Naiye Bharat',
+          description: `${formData.caseType} - Legal Consultation`,
           order_id: orderData.order.id,
           prefill: {
             name: formData.name,
             email: formData.email,
+            contact: formData.phone
           },
           theme: {
             color: '#2563eb'
@@ -234,7 +252,7 @@
           modal: {
             ondismiss: function() {
               payButton.disabled = false;
-              payButton.textContent = 'Pay ₹500 & Submit';
+              payButton.textContent = 'Pay ₹999 & Submit';
               showMessage('Payment cancelled', 'error');
             }
           }
@@ -245,9 +263,9 @@
 
       } catch (error) {
         console.error('Error:', error);
-        showMessage('Error initiating payment. Please try again.', 'error');
+        showMessage(`Error: ${error.message}. Please try again.`, 'error');
         payButton.disabled = false;
-        payButton.textContent = 'Pay ₹500 & Submit';
+        payButton.textContent = 'Pay ₹999 & Submit';
       }
     }
 
@@ -264,20 +282,24 @@
           body: JSON.stringify(paymentResponse)
         });
 
+        if (!verifyResponse.ok) {
+          throw new Error(`HTTP error! status: ${verifyResponse.status}`);
+        }
+
         const verifyData = await verifyResponse.json();
 
         if (verifyData.success) {
           // Payment verified - now send the form data
           await submitForm(formData, verifyData);
         } else {
-          throw new Error('Payment verification failed');
+          throw new Error(verifyData.message || 'Payment verification failed');
         }
 
       } catch (error) {
         console.error('Verification error:', error);
-        showMessage('Payment verification failed. Please contact support.', 'error');
+        showMessage(`Verification failed: ${error.message}. Please contact support.`, 'error');
         payButton.disabled = false;
-        payButton.textContent = 'Pay ₹500 & Submit';
+        payButton.textContent = 'Pay ₹999 & Submit';
       }
     }
 
@@ -298,23 +320,27 @@
           })
         });
 
+        if (!emailResponse.ok) {
+          throw new Error(`HTTP error! status: ${emailResponse.status}`);
+        }
+
         const emailData = await emailResponse.json();
 
         if (emailData.success) {
           showMessage('Payment successful! Your message has been sent.', 'success');
           document.getElementById('contactForm').reset();
         } else {
-          throw new Error('Email sending failed');
+          throw new Error(emailData.message || 'Email sending failed');
         }
 
         payButton.disabled = false;
-        payButton.textContent = 'Pay ₹500 & Submit';
+        payButton.textContent = 'Pay ₹999 & Submit';
 
       } catch (error) {
         console.error('Submission error:', error);
         showMessage('Payment successful but message delivery failed. We will contact you.', 'warning');
         payButton.disabled = false;
-        payButton.textContent = 'Pay ₹500 & Submit';
+        payButton.textContent = 'Pay ₹999 & Submit';
       }
     }
 
@@ -332,6 +358,8 @@
         statusMessage.classList.add('hidden');
       }, 5000);
     }
+
+   
   </script>
   
 <footer class="flex flex-col md:flex-row gap-3 items-center justify-around w-full py-4 text-sm bg-slate-800 text-white/70">
